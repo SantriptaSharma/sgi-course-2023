@@ -16,3 +16,6 @@ def boundary_length(V,F):
     L = np.sum(np.linalg.norm(BE, axis=-1))
 
     return L
+
+V, F = gpy.read_mesh("data/goathead.obj")
+print(boundary_length(V, F))

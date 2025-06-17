@@ -5,5 +5,5 @@ def det2x2(A):
 
     This function returns the determinant of the 2x2 matrix A.
     """
-    return 0.
+    return A[0, 0] * A[1, 1] - A[0, 1] * A[1, 0]
 

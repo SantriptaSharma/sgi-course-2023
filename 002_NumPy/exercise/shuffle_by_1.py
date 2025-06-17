@@ -7,4 +7,9 @@ def shuffle_by_1(A):
     such that the new ith col is the old i-1th col, and the new 1st col 
     is the old last col.
     """
-    return None
+    
+    last_col = A[:, -1]
+    A[:, 1:] = A[:, :-1]
+    A[:, 0] = last_col
+
+    return A

@@ -8,7 +8,17 @@ def critical_points(V,F,u,tol):
     """
 
     G = gpy.grad(V,F)
-    pts = ...
+
+    gu = np.c_[np.split(G * u, 3)]
+    print(gu.shape)
+    
+    pts = np.nonzero(np.linalg.norm(gu, axis=-1) < tol)
 
     return pts
 
+V, F = gpy.read_mesh("data/mug.obj")
+
+print(F.shape[0], V.shape[0])
+
+u = np.random.random(V.shape[0])
+print(critical_points(V, F, u, 1))

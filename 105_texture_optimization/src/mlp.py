@@ -25,16 +25,17 @@ class MLP(nn.Module):
             layers.append(nn.Linear(input_dim, width))
             layers.append(nn.ReLU())
             layers.append(nn.LayerNorm([width]))
+        
         for i in range(depth):
             layers.append(nn.Linear(width, width))
             layers.append(nn.ReLU())
             layers.append(nn.LayerNorm([width]))
         layers.append(nn.Linear(width, out_dim))
 
-        self.netowrk = nn.ModuleList(layers)
+        self.network = nn.ModuleList(layers)
 
     def forward(self, x):
-        for layer in self.netowrk:
+        for layer in self.network:
             x = layer(x)
         if self.clamp == "sigmoid":
             x = torch.sigmoid(x)

@@ -4,12 +4,14 @@ from PIL import Image
 from src.mesh import Mesh
 from src.utils import plot_uvs, compute_distortion
 from exercise.triangle_soup_parameterization import triangle_soup_parameterization
+import matplotlib.pyplot as plt
 
 if __name__ == "__main__":
-    ps.init()
     mesh = Mesh("data/cube.obj", torch=True)
     vt, ft = triangle_soup_parameterization(mesh)
 
+    ps.init()
+    
     # Test the distortion of our parameterization
     # compute_distortion() returns the singular values of the jacobian of the
     # transformation for each triangle

@@ -14,9 +14,13 @@ def transform_triangles(triangles):
         triangles (torch.tensor): F x 3 x 2 array of transformed triangle coordinates
     """
     # Translate the triangles so that all coordinates are non-negative
-
+    
+    # get min x, y per tri
+    mins = torch.min(triangles, dim=1).values
+    triangles -= mins[:, torch.newaxis, :]
 
     # Rescale triangles
-
+    max = torch.max(triangles)
+    triangles /= max
 
     return triangles

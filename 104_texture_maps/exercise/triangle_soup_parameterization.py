@@ -39,11 +39,17 @@ def triangle_soup_parameterization(mesh):
     # For example: new_tensor = torch.tensor([1, 2, 3]).to(device)
     device = mesh.vertices.device
 
-    # Map all triangles to the plane independently (use `trivial_parameterization()`)
+    triangles = mesh.vertices[mesh.faces]
 
+    # Map all triangles to the plane independently (use `trivial_parameterization()`)
+    uvs, _, _, _ = (trivial_parameterization(triangles))
     
     # Pack triangles into a unit sqaure
-
+    packed = pack_triangles(uvs)
 
     # Construct the vt and ft tensors using the packed triangles
     # Hint: see torch.arange() for creating the ft tensor
+    vt = packed.reshape(-1, 2)
+    ft = torch.arange(packed.shape[0] * 3).reshape(-1, 3)
+
+    return vt, ft

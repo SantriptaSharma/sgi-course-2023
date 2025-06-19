@@ -34,28 +34,31 @@ def pack_triangles(triangles):
     device = triangles.device
 
     # Get the number of triangles
-
+    m = triangles.shape[0]
 
     # Calculate number of rows/columns needed for this square grid
     # (based on the number of triangles)
-
+    from math import ceil
+    a = ceil(m**0.5)
 
     # Generate a grid given these row/column sizes (see torch.meshgrid). Get a grid
     # coordinates tensor of shape (grid_rows * grid_columns, 2). Make sure that all
     # points in the grid are still contained within the unit square.
-
+    xx, yy = torch.meshgrid(torch.linspace(0, 1, a+1)[:-1], torch.linspace(0, 1, a+1)[:-1])
+    grid = torch.stack([yy.ravel(), xx.ravel()], dim=1)[:m]
 
     # Complete and use the helper function "transform_triangles()" to transform the
     # triangles so that that they are as large as possible while still fitting in the
     # unit square.
-
+    trigs = transform_triangles(triangles)
 
     # Rescale the triangles so that they fit on the grid without overlapping
-
+    trigs /= a
 
     # Arrange the triangles on the grid
     # Hint: try adding the grid coordinates to the triangle coordinates
     # One way to do this might be using `.flatten()` method in PyTorch
-
+    trigs += grid[:, torch.newaxis, :]
 
     # Return the packed triangles
+    return trigs

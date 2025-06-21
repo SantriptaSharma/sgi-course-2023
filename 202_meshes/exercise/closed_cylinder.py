@@ -79,6 +79,8 @@ V, F = closed_cylinder(18, 24)
 
 import polyscope as ps
 
+import gpytoolbox as gpy
+
 ps.init()
 ps.set_up_dir("z_up")
 ps.set_front_dir("neg_y_front")

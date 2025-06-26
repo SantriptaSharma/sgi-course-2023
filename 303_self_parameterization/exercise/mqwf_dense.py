@@ -19,10 +19,28 @@ def mqwf_dense(A, B, known, known_val):
         u: n x dim of output solution
     """
 
-    #### Fill in the missing part #####
+    if known_val.ndim == 1:
+        known_val = known_val.reshape(-1, 1)
+        B = B.reshape(-1, 1)
 
+    dim = known_val.shape[-1]
+
+    #### Fill in the missing part #####
+    unknown = np.setdiff1d(np.arange(A.shape[0]), known)
+
+    An = A[unknown, :][:, unknown]
+    bn = A[unknown, :][:, known] @ known_val + (A[known, :][:, unknown]).T @ known_val + B[unknown]
+
+    # adding eq constraints just requires tacking on the Aeq and beq rows
+    # [ 2*An ] x = [ -bn ]
+    # [ Aeq  ]     [ beq ]
+
+    unknowns = np.linalg.solve(2 * An, -bn)
 
     ###################################
 
+    u = np.zeros((A.shape[0], dim))
+    u[known] = known_val
+    u[unknown] = unknowns
 
     return u

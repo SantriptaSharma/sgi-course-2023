@@ -11,9 +11,13 @@ def face_areas(V, F):
         FA: |F| numpy array of face areas
     """
 
-    #### Fill in the missing part ####
+    #### Fill in the missing part #####
 
+    ab = V[F[:, 1]] - V[F[:, 0]]
+    ac = V[F[:, 2]] - V[F[:, 0]]
 
-    #################################@
+    areas = np.linalg.norm(np.cross(ab, ac), axis=-1) / 2
+
+    ###################################
     
-    return FA
+    return areas

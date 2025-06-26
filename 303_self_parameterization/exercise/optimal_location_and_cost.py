@@ -13,8 +13,13 @@ def optimal_location_and_cost(Qe):
     """
 
     #### Fill in the missing part #####
+    A = Qe[:3, :3]
+    b = -Qe[:3, 3]
+    c = Qe[3, 3]
 
+    v_opt = np.linalg.solve(A, b)
+    quadric_error = np.dot((v_opt @ A), v_opt) - 2 * np.dot(b, v_opt) + c
 
     ###################################
 
-    return v_optimal, quadric_error
+    return v_opt, quadric_error

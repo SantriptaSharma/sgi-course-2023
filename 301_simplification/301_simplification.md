@@ -26,10 +26,10 @@ Fill in the missing part in `triangle_quadrics.py`.
 ## Task 3: Optimal Location and Its Cost
 <a href="url"><img src="assets/optimal_location.png" align="center" width="90%" ></a>
 
-After obtaining the edge quadric for every edge in the mesh, we can proceed to iteratively collapse the edge with the samllest edge quadric error $E_{e}(x^\*)$, where **$x^\*$** represents the optimal location for the new vertex after the edge collapse. Let $Q_{e} = (A_{e}, -b_{e}, c_{e})$, the optimal location $x^*$ can be determined by solving a linear system derived from setting $\nabla E_{e} = 0$:
+After obtaining the edge quadric for every edge in the mesh, we can proceed to iteratively collapse the edge with the samllest edge quadric error $E_{e}(x^*)$, where **$x^*$** represents the optimal location for the new vertex after the edge collapse. Let $Q_{e} = (A_{e}, -b_{e}, c_{e})$, the optimal location $x*$ can be determined by solving a linear system derived from setting $\nabla E_{e} = 0$:
 
 $$
-A_{e} x^\* = b_{e}
+A_{e} x^* = b_{e}
 $$
 
 Fill in the missing part in `optimal_location_and_cost.py`.

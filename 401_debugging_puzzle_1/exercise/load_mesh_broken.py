@@ -35,7 +35,7 @@ def my_read_mesh_from_obj_file(obj_filename):
 
                 # parse the line, discard the 'f', then read it into a list of 3 indices
                 parts = line.strip().split()
-                face = [int(index.split('/')[0]) for index in parts[1:]]
+                face = [int(index.split('/')[0]) - 1 for index in parts[1:]]
                 
                 # add this face to the list of faces
                 faces.append(face)
@@ -57,3 +57,9 @@ DATA_DIR = os.path.join(THIS_DIR, "..", "data")
 # Something is wrong with the resulting V,F!
 # We promise nothing is wrong with this file itself.
 V, F = my_read_mesh_from_obj_file(os.path.join(DATA_DIR, "fox.obj"))
+
+import polyscope as ps
+
+ps.init()
+ps.register_surface_mesh("fox", V, F)
+ps.show()

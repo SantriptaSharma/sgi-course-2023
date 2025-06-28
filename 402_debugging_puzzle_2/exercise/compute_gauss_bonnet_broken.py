@@ -20,7 +20,8 @@ def compute_total_curvature(V, F):
     normA = np.linalg.norm(vecA, axis=-1) # [F,3]
     normB = np.linalg.norm(vecB, axis=-1) # [F,3]
     dot_prod = np.sum(vecA * vecB, axis=-1) # [F,3]
-    corner_angles = np.arccos(dot_prod / (normA * normB)) # [F,3] tensor of corner angles in radians for each triangle
+
+    corner_angles = np.arccos(dot_prod / (normA * normB + 1e-9)) # [F,3] tensor of corner angles in radians for each triangle
 
     # compute the total curvature
     num_verts = V.shape[0]
@@ -61,3 +62,10 @@ process_mesh(os.path.join(DATA_DIR, "spot_good.obj"))
 process_mesh(os.path.join(DATA_DIR, "torus_good.obj"))
 process_mesh(os.path.join(DATA_DIR, "triple_torus_good.obj"))
 process_mesh(os.path.join(DATA_DIR, "sphere_bad.obj"))
+
+V, F = gpy.read_mesh("data/sphere_bad.obj")
+import polyscope as ps
+
+ps.init()
+ps.register_surface_mesh("bad", V, F)
+ps.show()
